@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoCap Bridge</title>
+  <link rel="stylesheet" href="/mocap_interface.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Local Pipeline</p>
+        <h1>MoCap Bridge</h1>
+        <p class="subcopy">Bring <code>ASF + AMC</code> into one place, export clean XYZ coordinates, then stream only the points you want into TouchDesigner.</p>
+      </div>
+      <div class="hero-summary">
+        <div class="summary-card">
+          <span class="summary-label">Dataset</span>
+          <strong id="summaryDataset">No CSV yet</strong>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Points Selected</span>
+          <strong id="summaryPoints">0</strong>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">OSC State</span>
+          <strong id="summaryStream">Idle</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="main-column">
+        <section class="card convert-card">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Step 1</p>
+              <h2>Convert Files</h2>
+            </div>
+            <p class="section-note">Upload the skeleton and motion pair to generate a TouchDesigner-ready XYZ CSV.</p>
+          </div>
+          <form id="convertForm" class="stack">
+            <div class="upload-grid">
+              <label class="file-field">
+                <span>ASF Skeleton</span>
+                <input id="asfInput" name="asf" type="file" accept=".asf">
+              </label>
+              <label class="file-field">
+                <span>AMC Motion</span>
+                <input id="amcInput" name="amc" type="file" accept=".amc,.txt">
+              </label>
+            </div>
+            <div class="button-row">
+              <button id="convertButton" type="submit">Convert to XYZ CSV</button>
+              <a id="downloadLink" class="button secondary disabled" href="#" download>Download 120 Hz CSV</a>
+              <a id="downloadHeld2Link" class="button secondary disabled" href="#" download>Download 60 Hz Sampled CSV</a>
+              <a id="downloadHeldLink" class="button secondary disabled" href="#" download>Download 30 Hz Sampled CSV</a>
+            </div>
+          </form>
+          <p id="convertStatus" class="status">Nothing converted yet.</p>
+        </section>
+
+        <section class="card points-card">
+          <div class="section-head points-head">
+            <div>
+              <p class="section-kicker">Step 2</p>
+              <h2>Select Points</h2>
+            </div>
+            <p class="section-note">Filter and choose exactly which joints or markers should be streamed.</p>
+          </div>
+          <div class="toolbar">
+            <input id="pointSearch" type="search" placeholder="Filter point names">
+            <div class="button-row compact">
+              <button id="selectAllButton" type="button" class="secondary">Select All</button>
+              <button id="clearAllButton" type="button" class="secondary">Clear</button>
+            </div>
+          </div>
+          <div id="pointList" class="point-list empty">Convert a dataset to see available points.</div>
+        </section>
+      </div>
+
+      <aside class="side-column">
+        <section class="card stream-card">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Step 3</p>
+              <h2>Stream OSC</h2>
+            </div>
+            <p class="section-note">Send axis-suffixed addresses like <code>/mocap/root_x</code> directly into your TouchDesigner pipeline.</p>
+          </div>
+          <div class="stream-grid">
+            <label>
+              <span>Host</span>
+              <input id="hostInput" type="text" value="127.0.0.1">
+            </label>
+            <label>
+              <span>Port</span>
+              <input id="portInput" type="number" value="7000">
+            </label>
+            <label>
+              <span>FPS</span>
+              <input id="fpsInput" type="number" min="1" step="1" value="30">
+            </label>
+            <label>
+              <span>OSC Prefix</span>
+              <input id="prefixInput" type="text" value="/mocap">
+            </label>
+          </div>
+          <label class="toggle">
+            <input id="loopInput" type="checkbox" checked>
+            <span>Loop playback continuously</span>
+          </label>
+          <div class="button-row">
+            <button id="startStreamButton" type="button">Start Streaming</button>
+            <button id="stopStreamButton" type="button" class="secondary">Stop</button>
+          </div>
+          <p id="streamStatus" class="status">Streamer is idle.</p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script src="/mocap_interface.js"></script>
+</body>
+</html>

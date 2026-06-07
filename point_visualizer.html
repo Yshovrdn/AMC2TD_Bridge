@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Point Visualizer</title>
+  <link rel="stylesheet" href="./point_visualizer.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="control-panel">
+      <div class="panel-block">
+        <p class="eyebrow">Interactive Viewer</p>
+        <h1>CSV Point Visualizer</h1>
+        <p class="muted">
+          Load a CSV with columns like <code>joint_x</code>, <code>joint_y</code>, <code>joint_z</code>
+          or <code>joint_tx</code>, <code>joint_ty</code>, <code>joint_tz</code>.
+        </p>
+      </div>
+
+      <div class="panel-block">
+        <label class="file-button">
+          <span>Load CSV</span>
+          <input id="fileInput" type="file" accept=".csv,text/csv">
+        </label>
+        <p id="statusText" class="status">Drop a CSV onto the canvas or use the button above.</p>
+      </div>
+
+      <div class="panel-block">
+        <div class="section-label">Playback</div>
+        <div class="button-row">
+          <button id="playButton" type="button">Play</button>
+          <button id="resetViewButton" type="button">Reset View</button>
+        </div>
+
+        <label class="inline-control">
+          <span>FPS</span>
+          <input id="fpsInput" type="range" min="1" max="120" value="30">
+          <output id="fpsOutput">30</output>
+        </label>
+
+        <label class="inline-control">
+          <span>Speed</span>
+          <input id="speedInput" type="range" min="25" max="400" value="100">
+          <output id="speedOutput">1.00x</output>
+        </label>
+
+        <label class="inline-toggle">
+          <input id="loopInput" type="checkbox" checked>
+          <span>Loop playback</span>
+        </label>
+      </div>
+
+      <div class="panel-block">
+        <div class="section-label">Display</div>
+
+        <label class="inline-control">
+          <span>Point size</span>
+          <input id="pointSizeInput" type="range" min="2" max="14" value="6">
+          <output id="pointSizeOutput">6</output>
+        </label>
+
+        <label class="inline-control">
+          <span>Label mode</span>
+          <select id="labelModeInput">
+            <option value="selected">Selected</option>
+            <option value="all">All</option>
+            <option value="hover">Hover</option>
+            <option value="none">None</option>
+          </select>
+        </label>
+
+        <label class="inline-toggle">
+          <input id="gridInput" type="checkbox" checked>
+          <span>Show ground grid</span>
+        </label>
+
+        <label class="inline-toggle">
+          <input id="axesInput" type="checkbox" checked>
+          <span>Show axes</span>
+        </label>
+      </div>
+
+      <div class="panel-block">
+        <div class="section-label">Labels</div>
+        <input id="searchInput" class="search-input" type="search" placeholder="Filter point names">
+        <div class="button-row compact">
+          <button id="showAllPointsButton" type="button">All Points</button>
+          <button id="hideAllPointsButton" type="button">Hide Points</button>
+        </div>
+        <div class="button-row compact">
+          <button id="showAllLabelsButton" type="button">All Labels</button>
+          <button id="hideAllLabelsButton" type="button">Hide Labels</button>
+        </div>
+        <div id="pointList" class="point-list"></div>
+      </div>
+
+      <div class="panel-block panel-note">
+        <div class="section-label">Camera</div>
+        <p class="muted">Drag to orbit. Shift-drag to pan. Scroll to zoom.</p>
+      </div>
+    </aside>
+
+    <main class="viewer-panel">
+      <canvas id="viewport"></canvas>
+
+      <div class="hud">
+        <div class="hud-chip"><span>File</span><strong id="fileNameValue">None</strong></div>
+        <div class="hud-chip"><span>Points</span><strong id="pointCountValue">0</strong></div>
+        <div class="hud-chip"><span>Frames</span><strong id="frameCountValue">0</strong></div>
+        <div class="hud-chip"><span>Frame</span><strong id="frameValue">0</strong></div>
+      </div>
+
+      <div id="dropOverlay" class="drop-overlay">Drop CSV to load</div>
+
+      <div class="timeline-panel">
+        <input id="timelineInput" type="range" min="0" max="0" value="0">
+      </div>
+    </main>
+  </div>
+
+  <script src="./point_visualizer.js"></script>
+</body>
+</html>
