@@ -30,6 +30,18 @@ Then open:
 http://127.0.0.1:8765
 ```
 
+## Sharing
+
+This is easiest to share as a GitHub repo or downloadable zip, not as a hosted website.
+
+Why:
+
+- the OSC stream needs to reach TouchDesigner on the same machine
+- users need to upload local `ASF` and `AMC` files
+- the current app runs a small local Python server
+
+If you want this to feel easier for non-technical users, the next real step would be packaging it as a standalone desktop app.
+
 ## Basic Workflow
 
 1. Upload a matching `ASF` file and `AMC` file.

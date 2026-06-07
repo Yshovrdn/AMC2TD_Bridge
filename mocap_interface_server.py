@@ -25,11 +25,11 @@ from csv_to_osc_stream import (
 
 ROOT_DIR = Path(__file__).resolve().parent
 STATIC_FILES = {
-    "/": ("mocap_interface.html", "text/html; charset=utf-8"),
-    "/mocap_interface.css": ("mocap_interface.css", "text/css; charset=utf-8"),
-    "/mocap_interface.js": ("mocap_interface.js", "application/javascript; charset=utf-8"),
-    "/AtkinsonHyperlegibleNext-Regular.ttf": ("AtkinsonHyperlegibleNext-Regular.ttf", "font/ttf"),
-    "/AtkinsonHyperlegibleNext-Bold.ttf": ("AtkinsonHyperlegibleNext-Bold.ttf", "font/ttf"),
+    "/": ("web/mocap_interface.html", "text/html; charset=utf-8"),
+    "/mocap_interface.css": ("web/mocap_interface.css", "text/css; charset=utf-8"),
+    "/mocap_interface.js": ("web/mocap_interface.js", "application/javascript; charset=utf-8"),
+    "/AtkinsonHyperlegibleNext-Regular.ttf": ("web/fonts/AtkinsonHyperlegibleNext-Regular.ttf", "font/ttf"),
+    "/AtkinsonHyperlegibleNext-Bold.ttf": ("web/fonts/AtkinsonHyperlegibleNext-Bold.ttf", "font/ttf"),
 }
 
 
